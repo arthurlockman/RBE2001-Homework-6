@@ -20,6 +20,16 @@
  * @modified 10/6/2014 
  */
 
+/**
+ * BONUS:
+ * The lowest possible non-zero frequency for the low range is 2Hz. This is because
+ * the smallest (non-zero) number of pulses it can measure in the low range is 1. 1
+ * pulse over 500ms is equal to 2Hz, as far as the Arduino can tell. In the high setting,
+ * the lowest frequency it can measure is 10Hz. This is because the smallest number 
+ * of pulses it can measure over the 100ms interval is 1, and 1 pulse over 100ms
+ * is equal to 10Hz. 
+ */
+
 #include <LiquidCrystal.h>
 #include <TimerOne.h>
 #include <stdio.h>
@@ -64,6 +74,7 @@ void loop()
 	unsigned long decimals = (frequency - (unsigned long)frequency) * 100; //decimals in frequency
 	snprintf(speedOutput, 16, "%d.%d Hz   ", (unsigned long)frequency, decimals); //create output string
 	m_lcd.print(speedOutput); //write output string to LCD.
+	delay(100);
 }
 
 /**
@@ -85,7 +96,7 @@ void integrateSignal()
 	if (period == 0)
 	{
 		counter = 0; //Reset interrupt counter.
-		lastFrequency = (float)numberOfPulses / (0.5 * (float)integrationPeriod); //Determine frequency.
+		lastFrequency = (float)numberOfPulses / (0.1 * (float)integrationPeriod); //Determine frequency.
 		numberOfPulses = 0; //Reset pulse counter.
 	}
 	counter++; //increment interrupt counter.
