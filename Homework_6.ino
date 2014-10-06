@@ -26,7 +26,7 @@
 
 LiquidCrystal m_lcd(12, 11, 10, 9, 8, 7); //Instantiate LCD
 
-static const int kIntegrationPeriodSelect = 1; //Pin to select integration period. Low = long period.
+static const int kIntegrationPeriodSelect = 3; //Pin to select integration period.
 static const int kSignal = 0; //Signal interrupt pin
 static const unsigned long kTimerPeriod = 100000; //Timer period
 
@@ -53,7 +53,7 @@ void loop()
 			m_lcd.setCursor(0, 0);
 			m_lcd.print("Range: high");
 			break;
-		case 2:
+		case 5:
 			m_lcd.setCursor(0, 0);
 			m_lcd.print("Range: low ");
 			break;
