@@ -1,12 +1,34 @@
+/**
+ * RBE 2001 Homework 6
+ * 
+ * This program was written to count frequencies of an
+ * incoming signal using an Arduino Uno. It accepts signals
+ * on digital pin 2 and counts the frequency using 
+ * interrupt service routines.
+ * 
+ * D2  : Signal
+ * D3  : Integration Period Select Jumper
+ * D7  : LCD D7
+ * D8  : LCD D6
+ * D9  : LCD D5
+ * D10 : LCD D4
+ * D11 : LCD E
+ * D12 : LCD RS
+ * 
+ * @author   Arthur Lockman
+ * @created  10/4/2014
+ * @modified 10/6/2014 
+ */
+
 #include <LiquidCrystal.h>
 #include <TimerOne.h>
 #include <stdio.h>
 
 LiquidCrystal m_lcd(12, 11, 10, 9, 8, 7); //Instantiate LCD
 
-static const int kIntegrationPeriodSelect = 3; //Pin to select integration period
+static const int kIntegrationPeriodSelect = 1; //Pin to select integration period. Low = long period.
 static const int kSignal = 0; //Signal interrupt pin
-static const unsigned long kTimerPeriod = 500000; //Timer period
+static const unsigned long kTimerPeriod = 100000; //Timer period
 
 volatile int counter = 0; //number of interrupts since last reset
 volatile int integrationPeriod = 1; //2 for low, 1 for high
@@ -24,7 +46,7 @@ void setup()
 
 void loop()
 {
-	(digitalRead(kIntegrationPeriodSelect) == 1)? integrationPeriod = 1 : integrationPeriod = 2;
+	(digitalRead(kIntegrationPeriodSelect) == 1)? integrationPeriod = 1 : integrationPeriod = 5;
 	switch(integrationPeriod) //Change LCD display to reflect selected integration period.
 	{
 		case 1:
