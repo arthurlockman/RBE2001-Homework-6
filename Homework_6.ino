@@ -76,10 +76,10 @@ void integrateSignal()
 	noInterrupts(); //disable interrupts
 	/**
 	 * What this does is determine if the code should be run based on the selected
-	 * integration period. The timer interrupt runs every .5 seconds. If the high period
+	 * integration period. The timer interrupt runs every 100 milliseconds. If the high period
 	 * is selected then integrationPeriod == 1, so the code runs every interrupt. If 
-	 * low is selected then integrationPeriod == 2, so the code runs every other 
-	 * interrupt.
+	 * low is selected then integrationPeriod == 5 so the code runs every 5 interrupts,
+	 * or 500ms.
 	 */
 	int period = counter % integrationPeriod;
 	if (period == 0)
